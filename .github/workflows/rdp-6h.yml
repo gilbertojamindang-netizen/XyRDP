@@ -1,9 +1,5 @@
 # rdpfree-workflow-schema: 5
-# 1.1.28: tambah fps_boost, samp_antiban, mumu, portmap_host/portmap_port,
-#         dan opsi akses portmap/railway. Penanda skema sengaja tetap 5 supaya
-#         kontrak web-next/src/lib/workflow-contract.ts tetap menerima workflow.
-#         Input baru semuanya required:false, jadi repo lama tetap kompatibel.
-name: RdpFree — RDP 6 Jam
+name: RdpFree — RDP 24 Jam
 
 on:
   workflow_dispatch:
@@ -21,7 +17,7 @@ on:
       rdp_user:
         description: 'Username RDP (3–20 karakter)'
         required: false
-        default: 'xyadmin'
+        default: 'VOIDadmin' # <--- BINAGO NATIN DITO
         type: string
       akses:
         description: 'Jalur akses ke RDP (tailscale disarankan)'
@@ -208,7 +204,7 @@ jobs:
     env:
       DUR: ${{ inputs.durasi_menit || '360' }}
       HOSTNAME: ${{ inputs.hostname || 'rdpfree' }}
-      RDP_USER: ${{ inputs.rdp_user || 'xyadmin' }}
+      RDP_USER: ${{ inputs.rdp_user || 'VOIDadmin' }}
       RDP_PASSWORD: ${{ secrets.RDP_PASSWORD }}
       AKSES: ${{ inputs.akses || 'tailscale' }}
       TAILSCALE_AUTH_KEY: ${{ secrets.TAILSCALE_AUTH_KEY }}
@@ -262,6 +258,28 @@ jobs:
       # ======================================================================
       # JALUR WINDOWS DESKTOP RDP (Windows Server 2022 / 2025 / Latest)
       # ======================================================================
+      
+      # --- STEP BAGO: I-BYPASS LAHAT NG RESTRICTIONS ---
+      - name: Bypass Restrictions & Allow All (Firewall, UAC, NLA, Defender)
+        if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
+        shell: pwsh
+        run: |
+          Write-Host "Mematikan Windows Firewall..."
+          Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+          
+          Write-Host "Mematikan UAC (User Account Control)..."
+          Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value 0
+          
+          Write-Host "Mematikan NLA (Network Level Authentication) untuk RDP..."
+          Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 0
+          
+          Write-Host "Mematikan Windows Defender Realtime Protection..."
+          Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction SilentlyContinue
+          
+          Write-Host "Izin eksekusi script dibuka lebar..."
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+      # ------------------------------------------------
+
       - name: Bersihkan run lama
         if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
         shell: pwsh
@@ -379,8 +397,6 @@ jobs:
         continue-on-error: true
         run: ./scripts/setup-discord.ps1
 
-
-
       - name: Publish status siap pakai (setelah seluruh aplikasi & game siap)
         if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
         shell: pwsh
@@ -455,10 +471,6 @@ jobs:
             }
           } | ConvertTo-Json -Depth 5
           try {
-            # Anti-Suspend Guard untuk Akun Baru GitHub:
-            # 1) Cek umur akun pemilik repo. Jika akun baru berumur < 7 hari, jangan lakukan
-            #    self-retrigger tanpa henti karena sistem otomatis GitHub mendeteksinya sebagai bot loop.
-            # 2) Beri jeda acak sopan (15-25 detik) sebelum memicu sesi estafet berikutnya.
             $ownerName = ($env:GITHUB_REPOSITORY -split '/')[0]
             $allowAutoRenew = $true
             try {
@@ -466,7 +478,7 @@ jobs:
               if ($usrObj -and $usrObj.created_at) {
                 $ageDays = ([DateTime]::UtcNow - [DateTime]::Parse($usrObj.created_at).ToUniversalTime()).TotalDays
                 if ($ageDays -lt 7) {
-                  Write-Host "Anti-Suspend Guard: Akun @$ownerName masih berumur $([math]::Round($ageDays,1)) hari (< 7 hari). Auto-retrigger dilewati demi keamanan akun baru (silakan nyalakan sesi berikutnya secara manual dari aplikasi)."
+                  Write-Host "Anti-Suspend Guard: Akun @$ownerName masih berumur $([math]::Round($ageDays,1)) hari (< 7 hari). Auto-retrigger dilewati."
                   $allowAutoRenew = $false
                 }
               }
@@ -476,7 +488,7 @@ jobs:
               Start-Sleep -Seconds (Get-Random -Minimum 15 -Maximum 26)
               Invoke-RestMethod -Uri "https://api.github.com/repos/$($env:GITHUB_REPOSITORY)/actions/workflows/rdp-6h.yml/dispatches" `
                 -Headers $hdr -Method Post -ContentType 'application/json' -Body $body -TimeoutSec 20 | Out-Null
-              Write-Host 'Sesi berikutnya berhasil dijadwalkan otomatis (data sesi ini sudah tersimpan).'
+              Write-Host 'Sesi berikutnya berhasil dijadwalkan otomatis.'
             }
           } catch {
             Write-Host "Auto-renew dilewati: $($_.Exception.Message)"
