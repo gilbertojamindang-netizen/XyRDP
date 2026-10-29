@@ -24,10 +24,7 @@ on:
         required: false
         default: 'tailscale'
         type: choice
-        options:
-          - tailscale
-          - portmap
-          - railway
+        options: [tailscale, portmap, railway]
       portmap_host:
         description: 'Host tunnel publik (opsional)'
         required: false
@@ -199,6 +196,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ==========================================
+      # LINUX STEPS
+      # ==========================================
       - name: Setup dasar RDP & Akses Linux
         if: ${{ startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
         shell: bash
@@ -217,6 +217,9 @@ jobs:
         continue-on-error: true
         run: ./scripts/setup-linux-rdp.sh --finalize-only
 
+      # ==========================================
+      # WINDOWS STEPS
+      # ==========================================
       - name: Bypass Restrictions (Windows)
         if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
         shell: pwsh
@@ -273,7 +276,10 @@ jobs:
         if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
         shell: pwsh
         continue-on-error: true
-        run: ./scripts/setup-explorer.ps1
+        run: |
+          Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+          ./scripts/setup-explorer.ps1
+          Start-Process explorer.exe
 
       - name: Audio RDP
         if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') && (inputs.microphone || 'ya') != 'tidak' }}
@@ -367,12 +373,19 @@ jobs:
       - name: Info Koneksi (IP & User)
         if: ${{ !startsWith(inputs.runner || 'windows-2022', 'ubuntu') }}
         shell: pwsh
+        continue-on-error: true
         run: |
           $akses = "${{ inputs.akses || 'tailscale' }}"
           $user = "${{ inputs.rdp_user || 'kate_lopez' }}"
           $ip = "Belum terdeteksi"
+          
           if ($akses -eq 'tailscale') {
-            $ip = & tailscale ip -4
+            $tsPath = "C:\Program Files\Tailscale\tailscale.exe"
+            if (Test-Path $tsPath) {
+              $ip = & $tsPath ip -4
+            } else {
+              $ip = "Cek log 'Setup Tailscale' di atas"
+            }
           } else {
             $ip = "${{ inputs.portmap_host }}"
           }
