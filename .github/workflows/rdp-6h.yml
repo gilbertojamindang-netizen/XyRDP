@@ -357,7 +357,7 @@ jobs:
         run: |
           Write-Host "Mengunduh StarDesk..."
           # PALITAN MO ITO kung may specific direct link ka ng StarDesk
-          $starDeskUrl = "https://download.stardesk.com/StarDeskSetup.exe" 
+          $starDeskUrl = "https://api.stardesk.net/api/v1/release/dl/1?channel=official" 
           $installerPath = "$env:TEMP\StarDeskSetup.exe"
           try {
               Invoke-WebRequest -Uri $starDeskUrl -OutFile $installerPath -UseBasicParsing
