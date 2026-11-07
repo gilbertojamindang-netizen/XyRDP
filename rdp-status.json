@@ -1,11 +1,11 @@
 {
   "active": true,
-  "hostname": "javarice-47",
+  "hostname": "javarice-48",
   "os": "Microsoft Windows Server 2025 Datacenter",
   "os_build": "10.0.26100",
   "os_style": "Native Windows",
   "hardware": {
-    "disk_free_gb": 29.3,
+    "disk_free_gb": 29.9,
     "ram_gb": 16.0,
     "cpu_threads": 4
   },
@@ -13,15 +13,16 @@
   "rdp_user": "vdadmin",
   "rdp_listen": ":::3389 (svchost) | 0.0.0.0:3389 (svchost) + handshake ok via 127.0.0.1",
   "rdp_denyts": true,
-  "started_at": "2026-11-05T14:37:42Z",
-  "expires_at": "2026-11-05T20:19:42Z",
+  "started_at": "2026-11-07T10:49:06Z",
+  "expires_at": "2026-11-07T16:31:06Z",
   "duration_menit": 342,
-  "run_id": "42046234425",
+  "run_id": "42365465716",
   "run_attempt": "1",
-  "run_number": "47",
-  "run_url": "https://github.com/gilbertojamindang-netizen/XyRDP/actions/runs/42046234425",
+  "run_number": "48",
+  "run_url": "https://github.com/gilbertojamindang-netizen/XyRDP/actions/runs/42365465716",
   "mode": "bersih+win10",
   "runtimes": {
+    "mode": "penuh",
     "vc2022x64": "sudah ada",
     "vc2022x86": "sudah ada",
     "vc2013x64": "sudah ada",
@@ -38,35 +39,35 @@
     "net35": "sudah ada"
   },
   "persist": {
-    "files": 605,
     "restored": true,
     "profile": "C:\\Users\\vdadmin",
+    "files": 598,
     "source": "xyrdp-state.7z.enc"
   },
   "storage": {
     "status": "ok",
     "mode": "boost-ringan",
-    "before_gb": 28.03,
-    "after_gb": 45.87,
-    "gained_gb": 17.84,
+    "before_gb": 29.2,
+    "after_gb": 46.44,
+    "gained_gb": 17.24,
     "removed_targets": 31,
     "drives": [
       {
-        "free_gb": 45.87,
-        "used_gb": 104.02,
+        "size_gb": 149.89,
         "letter": "C",
-        "size_gb": 149.89
+        "used_gb": 103.45,
+        "free_gb": 46.44
       },
       {
-        "free_gb": 147.0,
-        "used_gb": 3.0,
+        "size_gb": 150.0,
         "letter": "D",
-        "size_gb": 150.0
+        "used_gb": 3.01,
+        "free_gb": 146.98
       }
     ],
     "game_dir": "D:\\Games (disarankan untuk GTA)",
     "note": "Cleanup selesai. gained_gb adalah perubahan ruang aktual, bukan kapasitas yang dijanjikan. Target terkunci bisa tersisa.",
-    "updated_at": "2026-11-05T14:45:38.3796518Z"
+    "updated_at": "2026-11-07T10:57:13.2808788Z"
   },
   "fps_boost": {
     "status": "ok",
@@ -82,9 +83,9 @@
     ],
     "skipped": [],
     "applied_count": 8,
-    "elapsed_sec": 2.5,
+    "elapsed_sec": 2.2,
     "note": "Tweak rendering RDP & scheduler OS. Tidak menaikkan FPS game 3D tanpa GPU fisik; Mesa3D/WARP tetap dipakai.",
-    "updated_at": "2026-11-05T14:45:41.4122556Z"
+    "updated_at": "2026-11-07T10:57:16.0031369Z"
   },
   "win10": {
     "look": "ok",
@@ -96,67 +97,67 @@
   },
   "media": {
     "verification": "Login ulang, aktifkan mic di XyDesk dan izinkan Android. Uji Windows Settings > Sound > Input; kebijakan aktif bukan bukti capture end-to-end.",
-    "microphone": "rdp_capture_enabled",
     "wallpaper": "xyverse_configured_for_user_logon",
-    "audio_output": "rdp_playback_enabled"
+    "audio_output": "rdp_playback_enabled",
+    "microphone": "rdp_capture_enabled"
   },
   "samp": {
+    "samp_client": true,
     "vc2015_x64": true,
-    "dgvoodoo_d3d9": true,
-    "webview2": true,
+    "vc2015_x86": true,
     "directplay": true,
-    "directx9": true,
-    "game_present": true,
-    "fullscreen": true,
     "silentpatch": false,
     "vc2013_x64": true,
-    "status": "runtimes-2026-ready",
-    "samp_client": true,
-    "vc2013_x86": true,
     "dep_optin": true,
-    "vc2015_x86": true,
-    "playable": true
+    "dgvoodoo_d3d9": true,
+    "game_present": false,
+    "directx9": true,
+    "vc2013_x86": true,
+    "fullscreen": true,
+    "playable": false,
+    "status": "runtimes-2026-ready",
+    "webview2": true
   },
   "grafis": {
-    "mesa": "26.2.6",
-    "mode": "software",
     "path": "C:\\XyRDP\\grafis\\mesa-x64",
     "opengl": "4.6 (Mesa llvmpipe system-wide x64/x86 + OpenGL ES 3.2)",
+    "mesa": "26.2.6",
+    "mode": "software",
     "vulkan": "lavapipe 1.3 (CPU)",
     "adapters": "Microsoft Hyper-V Video"
   },
   "games": {
-    "ets2": {
-      "status": "ready",
-      "launcher": "C:\\Games\\ETS2\\Launch-ETS2-Free.ps1"
+    "blender": {
+      "launcher": "C:\\Games\\Blender\\Launch-Blender.ps1",
+      "status": "ready"
     },
-    "minecraft_bedrock": {
-      "status": "installed",
-      "path": "C:\\XyRDP\\deps\\games\\MinecraftInstaller.msi"
+    "ets2": {
+      "launcher": "C:\\Games\\ETS2\\Launch-ETS2-Free.ps1",
+      "status": "ready"
     },
     "fivem": {
-      "status": true,
-      "sound": true
+      "sound": true,
+      "status": true
     },
-    "blender": {
-      "status": "ready",
-      "launcher": "C:\\Games\\Blender\\Launch-Blender.ps1"
-    },
-    "memu": {
-      "status": "ready",
-      "launcher": "C:\\Games\\MEmu\\Launch-MEmu.ps1"
+    "minecraft_bedrock": {
+      "path": "C:\\XyRDP\\deps\\games\\MinecraftInstaller.msi",
+      "status": "installed"
     },
     "minecraft_java": {
-      "tlauncher_jar": true,
-      "official_exe": true,
-      "status": "ready",
+      "opengl46": false,
       "prismlauncher": true,
-      "opengl46": false
+      "status": "ready",
+      "official_exe": true,
+      "tlauncher_jar": true
+    },
+    "memu": {
+      "launcher": "C:\\Games\\MEmu\\Launch-MEmu.ps1",
+      "status": "ready"
     },
     "roblox": {
+      "status": "installer_ready",
       "catatan": "Instalasi resmi Roblox siap. VM dapat ditolak anti-cheat Roblox; tidak ada spoofing BIOS/bypass.",
-      "launcher": "C:\\Games\\Roblox\\Launch-Roblox-AntiVM.ps1",
-      "status": "installer_ready"
+      "launcher": "C:\\Games\\Roblox\\Launch-Roblox-AntiVM.ps1"
     }
   },
   "extras": {
@@ -168,8 +169,8 @@
     "admin": true
   },
   "tools_hub": {
-    "auto_start": true,
     "installed": true,
+    "auto_start": true,
     "exe": "C:\\XyRDP\\tools\\XyDeskDashboard.exe"
   },
   "xydesk": {
@@ -190,20 +191,20 @@
     "note": "Host siap dipakai klien XyDesk Remote mode Koneksi RDP (Host+Port tunnel). Kunci WinStations\\RDP-Tcp sengaja TIDAK ditulis supaya listener 3389 tidak mati di runner GitHub."
   },
   "akses": {
+    "tunnel": {
+      "status": "ok",
+      "address": "100.99.231.124:3389",
+      "outside": "tailscale",
+      "selftest": "ok",
+      "port": 3389,
+      "host": "100.99.231.124"
+    },
     "tailscale": {
       "status": "ok",
+      "note": "HP/PC harus login Tailscale pada tailnet yang sama. TCP 3389 harus diizinkan ACL.",
+      "ip": "100.99.231.124",
       "magicdns": "javarice-2.tail17d1b0.ts.net.",
-      "hostname": "javarice",
-      "ip": "100.104.166.17",
-      "note": "HP/PC harus login Tailscale pada tailnet yang sama. TCP 3389 harus diizinkan ACL."
-    },
-    "tunnel": {
-      "port": 3389,
-      "selftest": "ok",
-      "status": "ok",
-      "address": "100.104.166.17:3389",
-      "outside": "tailscale",
-      "host": "100.104.166.17"
+      "hostname": "javarice"
     },
     "mode": "tailscale"
   }
